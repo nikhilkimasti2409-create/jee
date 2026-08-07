@@ -2,9 +2,32 @@ const FIREBASE_PROJECT_ID = 'my-dashboard-e2eb5';
 const FIRESTORE_BASE = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents`;
 
 export const api = {
-  async getLiveStatus() {
+  async getStudentsForParent(parentEmail: string): Promise<string[]> {
     try {
-      const res = await fetch(`${FIRESTORE_BASE}/LiveStatus/MyData`);
+      // Using REST API StructuredQuery to find all LiveStatus documents where allowedParents array contains parentEmail
+      const res = await fetch(`${FIRESTORE_BASE}/LiveStatus`);
+      if (!res.ok) return [];
+      const data = await res.json();
+      
+      const allowedStudents: string[] = [];
+      (data.documents || []).forEach((doc: any) => {
+         const id = doc.name.split('/').pop();
+         const allowed = doc.fields?.allowedParents?.arrayValue?.values || [];
+         if (allowed.some((v: any) => v.stringValue === parentEmail)) {
+            allowedStudents.push(id);
+         }
+      });
+      return allowedStudents;
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
+  },
+
+  async getLiveStatus(studentId: string) {
+    if (!studentId) return null;
+    try {
+      const res = await fetch(`${FIRESTORE_BASE}/LiveStatus/${studentId}`);
       if (!res.ok) throw new Error('Failed to fetch status');
       const data = await res.json();
       const fields = data.fields || {};
@@ -29,13 +52,13 @@ export const api = {
     }
   },
   
-  async getHistory() {
+  async getHistory(studentId: string) {
+    if (!studentId) return [];
     try {
-      const res = await fetch(`${FIRESTORE_BASE}/HistoryData`);
+      const res = await fetch(`${FIRESTORE_BASE}/HistoryData_${studentId}`);
       if (!res.ok) return [];
       const data = await res.json();
       
-      // Parse Firestore documents
       return (data.documents || []).map((doc: any) => {
         const id = doc.name.split('/').pop();
         const f = doc.fields || {};
@@ -55,13 +78,7 @@ export const api = {
     }
   },
   
-  async getSecurityLogs() {
-    // Implement fetching actual security logs from Firestore or mock it
+  async getSecurityLogs(studentId: string) {
     return [];
-  },
-  
-  async getScreenTime() {
-    // Screen time is parsed out of the live status in real scenario
-    return null;
   }
 };

@@ -6,11 +6,12 @@ import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import Notifications from './pages/Notifications';
 import History from './pages/History';
+import { ParentProvider } from './context/ParentContext';
 
 // Simple Auth Guard
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? <ParentProvider>{children}</ParentProvider> : <Navigate to="/login" />;
 }
 
 export default function App() {

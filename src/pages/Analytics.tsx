@@ -2,13 +2,19 @@ import { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import { CalendarDays, TrendingUp, Clock, Target } from 'lucide-react';
 import clsx from 'clsx';
+import { useParent } from '../context/ParentContext';
 
 export default function Analytics() {
   const [history, setHistory] = useState<any[]>([]);
+  const { selectedStudent } = useParent();
 
   useEffect(() => {
-    api.getHistory().then(setHistory).catch(console.error);
-  }, []);
+    if (!selectedStudent) {
+       setHistory([]);
+       return;
+    }
+    api.getHistory(selectedStudent).then(setHistory).catch(console.error);
+  }, [selectedStudent]);
 
   // Compute stats
   const totalMs = history.reduce((acc, curr) => acc + curr.totalTimeMs, 0);

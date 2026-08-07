@@ -9,20 +9,26 @@ import {
 } from 'lucide-react';
 import clsx from 'clsx';
 import { api } from '../services/api';
+import { useParent } from '../context/ParentContext';
 
 export default function Dashboard() {
   const [status, setStatus] = useState<any>(null);
+  const { selectedStudent } = useParent();
 
   useEffect(() => {
+    if (!selectedStudent) {
+       setStatus(null);
+       return;
+    }
     // Fetch live status
-    api.getLiveStatus().then(setStatus).catch(console.error);
+    api.getLiveStatus(selectedStudent).then(setStatus).catch(console.error);
     
     // Auto refresh every 30s
     const interval = setInterval(() => {
-      api.getLiveStatus().then(setStatus).catch(console.error);
+      api.getLiveStatus(selectedStudent).then(setStatus).catch(console.error);
     }, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [selectedStudent]);
 
   return (
     <>

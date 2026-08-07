@@ -5,22 +5,37 @@ import {
   History, 
   Bell, 
   Settings, 
-  ShieldCheck 
+  ShieldCheck,
+  Users
 } from 'lucide-react';
 import clsx from 'clsx';
+import { useParent } from '../context/ParentContext';
 
 export default function Sidebar() {
   const location = useLocation();
+  const { students, selectedStudent, setSelectedStudent } = useParent();
 
   return (
     <aside className="w-20 lg:w-64 flex-shrink-0 glass-panel flex flex-col items-center lg:items-stretch py-6 z-20 h-full">
-      <div className="flex items-center justify-center lg:justify-start lg:px-6 mb-10">
+      <div className="flex items-center justify-center lg:justify-start lg:px-6 mb-6">
         <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
           <ShieldCheck className="w-6 h-6 text-primary" />
         </div>
         <span className="ml-3 font-headline font-bold text-lg hidden lg:block text-slate-800 tracking-tight">
           JEE Guardian
         </span>
+      </div>
+
+      <div className="px-4 mb-6 hidden lg:block">
+        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 block flex items-center gap-1"><Users className="w-3 h-3"/> Students</label>
+        <select 
+          value={selectedStudent || ''} 
+          onChange={(e) => setSelectedStudent(e.target.value)}
+          className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:ring-primary focus:border-primary block p-2 outline-none"
+        >
+          {students.length === 0 && <option value="">No Students</option>}
+          {students.map(s => <option key={s} value={s}>{s}</option>)}
+        </select>
       </div>
 
       <nav className="flex-1 flex flex-col gap-2 px-3 lg:px-4">

@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import { AlertTriangle, Info, Bell, CheckCircle, ShieldAlert } from 'lucide-react';
+import { AlertTriangle, Info, Bell, ShieldAlert } from 'lucide-react';
 import clsx from 'clsx';
+import { useParent } from '../context/ParentContext';
 
 export default function Notifications() {
   const [logs, setLogs] = useState<any[]>([]);
+  const { selectedStudent } = useParent();
 
   useEffect(() => {
-    api.getSecurityLogs().then(setLogs).catch(console.error);
-  }, []);
+    if (!selectedStudent) {
+       setLogs([]);
+       return;
+    }
+    api.getSecurityLogs(selectedStudent).then(setLogs).catch(console.error);
+  }, [selectedStudent]);
 
   const getIcon = (severity: string) => {
     switch (severity) {

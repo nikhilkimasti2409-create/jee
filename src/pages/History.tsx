@@ -2,17 +2,23 @@ import { Globe, Clock, Monitor } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import clsx from 'clsx';
+import { useParent } from '../context/ParentContext';
 
 export default function History() {
   const [history, setHistory] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>('');
+  const { selectedStudent } = useParent();
 
   useEffect(() => {
-    api.getHistory().then((data) => {
+    if (!selectedStudent) {
+       setHistory([]);
+       return;
+    }
+    api.getHistory(selectedStudent).then((data) => {
        setHistory(data);
        if (data.length > 0) setSelectedDate(data[0].id);
     }).catch(console.error);
-  }, []);
+  }, [selectedStudent]);
 
   const selectedData = history.find(d => d.id === selectedDate);
 
