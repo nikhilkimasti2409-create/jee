@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import { AlertTriangle, Info, Bell, ShieldAlert } from 'lucide-react';
+import { AlertTriangle, Bell, ShieldAlert } from 'lucide-react';
 import clsx from 'clsx';
 import { useParent } from '../context/ParentContext';
 
