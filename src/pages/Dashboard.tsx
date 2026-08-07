@@ -4,7 +4,6 @@ import {
   Flame, 
   CheckCircle2, 
   Circle, 
-  BookOpen,
   Activity
 } from 'lucide-react';
 import clsx from 'clsx';
