@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import Notifications from './pages/Notifications';
 import History from './pages/History';
+import Settings from './pages/Settings';
 import { ParentProvider } from './context/ParentContext';
 
 // Simple Auth Guard
@@ -25,7 +26,7 @@ export default function App() {
           <Route path="analytics" element={<Analytics />} />
           <Route path="history" element={<History />} />
           <Route path="notifications" element={<Notifications />} />
-          {/* Settings could be added here in the future */}
+          <Route path="settings" element={<Settings />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
