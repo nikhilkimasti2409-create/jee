@@ -81,7 +81,32 @@ export const api = {
     }
   },
   
-  async getSecurityLogs(_studentId?: string) {
-    return [];
+  async getSecurityLogs(studentId?: string) {
+    if (!studentId) return [];
+    try {
+      // Using REST API to get all documents from SecurityViolations
+      const res = await fetch(`${FIRESTORE_BASE}/SecurityViolations`);
+      if (!res.ok) return [];
+      const data = await res.json();
+      
+      const logs = (data.documents || [])
+        .filter((doc: any) => doc.fields?.studentId?.stringValue === studentId)
+        .map((doc: any) => {
+          const f = doc.fields || {};
+          return {
+            id: doc.name.split('/').pop(),
+            type: f.type?.stringValue || 'security_violation',
+            details: f.details?.stringValue || 'Unknown violation',
+            timestamp: f.timestamp?.stringValue || new Date().toISOString(),
+            dateStr: f.dateStr?.stringValue || ''
+          };
+        })
+        .sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        
+      return logs;
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
   }
 };
