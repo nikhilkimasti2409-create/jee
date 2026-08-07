@@ -16,24 +16,6 @@ export default function Notifications() {
     api.getSecurityLogs(selectedStudent).then(setLogs).catch(console.error);
   }, [selectedStudent]);
 
-  const getIcon = (severity: string) => {
-    switch (severity) {
-      case 'high': return <ShieldAlert className="w-5 h-5 text-rose-500" />;
-      case 'medium': return <AlertTriangle className="w-5 h-5 text-amber-500" />;
-      case 'low': return <Info className="w-5 h-5 text-sky-500" />;
-      default: return <Bell className="w-5 h-5 text-slate-500" />;
-    }
-  };
-
-  const getColor = (severity: string) => {
-    switch (severity) {
-      case 'high': return 'bg-rose-50 border-rose-100';
-      case 'medium': return 'bg-amber-50 border-amber-100';
-      case 'low': return 'bg-sky-50 border-sky-100';
-      default: return 'bg-slate-50 border-slate-100';
-    }
-  };
-
   return (
     <div className="glass-card p-8 h-full flex flex-col">
       <div className="flex items-center justify-between mb-8">

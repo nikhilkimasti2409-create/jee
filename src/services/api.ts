@@ -78,7 +78,7 @@ export const api = {
     }
   },
   
-  async getSecurityLogs(studentId: string) {
+  async getSecurityLogs(_studentId?: string) {
     return [];
   }
 };

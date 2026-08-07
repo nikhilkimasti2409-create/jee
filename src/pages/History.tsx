@@ -1,7 +1,6 @@
 import { Globe, Clock, Monitor } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import clsx from 'clsx';
 import { useParent } from '../context/ParentContext';
 
 export default function History() {
