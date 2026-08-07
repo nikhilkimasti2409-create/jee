@@ -8,6 +8,8 @@ interface ParentContextType {
   setSelectedStudent: (id: string) => void;
   loading: boolean;
   refreshStudents: () => void;
+  searchQuery: string;
+  setSearchQuery: (q: string) => void;
 }
 
 const ParentContext = createContext<ParentContextType>({
@@ -16,12 +18,15 @@ const ParentContext = createContext<ParentContextType>({
   setSelectedStudent: () => {},
   loading: true,
   refreshStudents: () => {},
+  searchQuery: '',
+  setSearchQuery: () => {},
 });
 
 export function ParentProvider({ children }: { children: ReactNode }) {
   const [students, setStudents] = useState<string[]>([]);
   const [selectedStudent, setSelectedStudent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -41,7 +46,7 @@ export function ParentProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <ParentContext.Provider value={{ students, selectedStudent, setSelectedStudent, loading, refreshStudents: fetchStudents }}>
+    <ParentContext.Provider value={{ students, selectedStudent, setSelectedStudent, loading, refreshStudents: fetchStudents, searchQuery, setSearchQuery }}>
       {children}
     </ParentContext.Provider>
   );

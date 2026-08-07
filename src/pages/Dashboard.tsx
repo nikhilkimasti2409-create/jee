@@ -13,7 +13,7 @@ import { useParent } from '../context/ParentContext';
 
 export default function Dashboard() {
   const [status, setStatus] = useState<any>(null);
-  const { selectedStudent } = useParent();
+  const { selectedStudent, searchQuery } = useParent();
 
   useEffect(() => {
     if (!selectedStudent) {
@@ -55,45 +55,52 @@ export default function Dashboard() {
           <div className="absolute top-0 right-0 w-24 h-24 bg-rose-500/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110" />
           <h3 className="text-slate-500 text-sm font-label mb-2">Current Streak</h3>
           <div className="flex items-center gap-3">
-            <span className="text-3xl font-headline font-bold text-slate-800 tracking-tight">15 Days</span>
+            <span className="text-3xl font-headline font-bold text-slate-800 tracking-tight">{status?.streak || 0} Days</span>
             <div className="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center text-rose-500">
               <Flame className="w-5 h-5 fill-current" />
             </div>
           </div>
-          <p className="mt-3 text-sm text-slate-500 font-label">Best streak: 21 days</p>
+          <p className="mt-3 text-sm text-slate-500 font-label">Keep it up!</p>
         </div>
 
         <div className="glass-card p-5 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-24 h-24 bg-sky-500/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110" />
           <h3 className="text-slate-500 text-sm font-label mb-2">Tasks Completed</h3>
           <div className="flex items-center gap-3">
-            <span className="text-3xl font-headline font-bold text-slate-800 tracking-tight">7/10</span>
-            <span className="text-slate-400 text-sm font-medium mb-1">70%</span>
+            <span className="text-3xl font-headline font-bold text-slate-800 tracking-tight">
+              {status?.tasks?.filter((t: any) => t.done).length || 0}/{status?.tasks?.length || 0}
+            </span>
           </div>
           <div className="mt-4 flex gap-1">
-            {[1,2,3,4,5,6,7].map(i => <div key={i} className="h-1.5 flex-1 bg-sky-500 rounded-full" />)}
-            {[1,2,3].map(i => <div key={i} className="h-1.5 flex-1 bg-slate-100 rounded-full" />)}
+            <div className="h-1.5 flex-1 bg-sky-500 rounded-full" style={{ width: `${(status?.tasks?.filter((t: any) => t.done).length || 0) / (status?.tasks?.length || 1) * 100}%` }} />
           </div>
         </div>
 
         <div className="glass-card p-5 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110" />
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-slate-500 text-sm font-label">Live Status</h3>
+            <h3 className="text-slate-500 text-sm font-label">Active App/Website</h3>
             <span className={clsx("flex items-center gap-1.5 text-xs font-semibold px-2 py-1 rounded-full uppercase tracking-wider", status?.isStudying ? "text-emerald-600 bg-emerald-50" : "text-slate-500 bg-slate-100")}>
               <span className={clsx("w-1.5 h-1.5 rounded-full", status?.isStudying ? "bg-emerald-500 animate-pulse" : "bg-slate-400")} />
-              {status?.isStudying ? 'Active' : 'Offline'}
+              {status?.isStudying ? 'Online' : 'Offline'}
             </span>
           </div>
           <div className="flex items-center gap-3 mt-3">
             <div className="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-primary">
-              <BookOpen className="w-6 h-6" />
+              <Activity className="w-6 h-6" />
             </div>
-            <div>
-              <p className="font-headline font-bold text-lg text-slate-800 truncate" title={status?.currentSubject || 'Not Studying'}>
-                {status?.currentSubject || 'Not Studying'}
+            <div className="overflow-hidden flex-1">
+              <p className="font-headline font-bold text-md text-slate-800 truncate" title={status?.activeAppTitle || 'Not Studying'}>
+                {status?.activeAppTitle || 'Not Studying'}
               </p>
-              <p className="text-xs text-slate-500 font-label">{status?.url || 'No active study site'}</p>
+              {status?.isStudying && status?.sessionStartTime ? (
+                <p className="text-xs text-slate-500 font-label truncate">
+                  Started at {new Date(status.sessionStartTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} • 
+                  Running for {Math.floor((Date.now() - status.sessionStartTime) / 60000)}m
+                </p>
+              ) : (
+                <p className="text-xs text-slate-500 font-label">{status?.currentSubject || 'Idle'}</p>
+              )}
             </div>
           </div>
         </div>
@@ -153,7 +160,14 @@ export default function Dashboard() {
             {!status?.tasks?.length ? (
               <p className="text-sm text-slate-400 italic">No tasks set for today.</p>
             ) : (
-              status.tasks.map((task: any, idx: number) => (
+              status.tasks
+                .filter((t: any) => {
+                  const query = (searchQuery || '').toLowerCase();
+                  if (!query) return true;
+                  const title = String(t.title || t.text || JSON.stringify(t)).toLowerCase();
+                  return title.includes(query);
+                })
+                .map((task: any, idx: number) => (
                 <div key={idx} className="flex items-start gap-3 p-2 hover:bg-slate-50 rounded-lg transition-colors group cursor-default">
                   {task.done ? (
                     <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
@@ -165,6 +179,9 @@ export default function Dashboard() {
                   </span>
                 </div>
               ))
+            )}
+            {status?.tasks?.length > 0 && searchQuery && status.tasks.filter((t: any) => String(t.title || t.text || '').toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
+              <p className="text-sm text-slate-400 italic mt-2">No tasks match your search.</p>
             )}
           </div>
         </div>
