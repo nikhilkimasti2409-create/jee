@@ -1,0 +1,3 @@
+## 2025-02-23 - Accessibility for Icon-only Buttons
+**Learning:** Icon-only interactive elements in dashboards without `aria-label` or visually hidden text are common but heavily reduce accessibility for screen readers. In this application, several action buttons only contain Lucide React icons (e.g. `<Activity />`) which lack implicit names.
+**Action:** Always verify icon-only buttons (`<button>`, `<a>`) across the app and append an appropriate, descriptive `aria-label` to ensure they are accessible via keyboard and screen readers.
