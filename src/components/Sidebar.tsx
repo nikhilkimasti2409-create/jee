@@ -49,14 +49,16 @@ export default function Sidebar() {
           <Link
             key={item.id}
             to={item.id}
+            aria-label={item.label}
+            title={item.label}
             className={clsx(
-              "flex items-center justify-center lg:justify-start gap-3 p-3 rounded-lg transition-all duration-200 group relative",
+              "flex items-center justify-center lg:justify-start gap-3 p-3 rounded-lg transition-all duration-200 group relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
               location.pathname === item.id 
                 ? "bg-primary text-white shadow-md shadow-primary/20" 
                 : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
             )}
           >
-            <item.icon className="w-5 h-5" />
+            <item.icon aria-hidden="true" className="w-5 h-5" />
             <span className="font-label font-medium hidden lg:block">{item.label}</span>
           </Link>
         ))}
