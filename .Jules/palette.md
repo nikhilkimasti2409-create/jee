@@ -1,0 +1,3 @@
+## 2025-03-05 - Accessible Collapsed Navigation
+**Learning:** When responsive sidebars collapse navigation items down to icons only (hiding the text label), screen reader users and users navigating by tooltip lose context if explicit labels are not provided.
+**Action:** Always provide `aria-label` and `title` attributes on navigation links that might collapse visually, ensuring both screen readers and hover interactions remain accessible.
