@@ -137,8 +137,17 @@ export default function Settings() {
             
             <div className="space-y-3">
               <div 
+                role="switch"
+                aria-checked={emailAlerts}
+                tabIndex={0}
                 onClick={toggleEmailAlerts}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleEmailAlerts();
+                  }
+                }}
+                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
               >
                 <div className="flex items-center gap-3">
                   <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", emailAlerts ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")}>
@@ -155,8 +164,17 @@ export default function Settings() {
               </div>
 
               <div 
+                role="switch"
+                aria-checked={dailyReports}
+                tabIndex={0}
                 onClick={toggleDailyReports}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleDailyReports();
+                  }
+                }}
+                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
               >
                 <div className="flex items-center gap-3">
                   <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", dailyReports ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")}>
