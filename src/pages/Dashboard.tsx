@@ -224,7 +224,13 @@ export default function Dashboard() {
         <div className="glass-card p-6 h-80 flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-headline font-semibold text-lg text-slate-800">Recent Activity</h2>
-            <button className="text-slate-400 hover:text-slate-600"><Activity className="w-4 h-4" /></button>
+            <button
+              className="text-slate-400 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded p-1"
+              aria-label="View recent activity details"
+              title="View recent activity details"
+            >
+              <Activity className="w-4 h-4" />
+            </button>
           </div>
           <div className="flex-1 overflow-y-auto space-y-5 pr-2">
             {!status?.screenTime || Object.keys(status.screenTime).length === 0 ? (

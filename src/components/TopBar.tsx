@@ -18,8 +18,10 @@ export default function TopBar() {
 
       <div className="flex items-center gap-6">
         <div className="relative hidden md:block">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <label htmlFor="global-search" className="sr-only">Search activities</label>
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
           <input 
+            id="global-search"
             type="text" 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
