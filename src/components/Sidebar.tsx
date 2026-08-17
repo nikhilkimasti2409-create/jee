@@ -27,11 +27,12 @@ export default function Sidebar() {
       </div>
 
       <div className="px-4 mb-6 hidden lg:block">
-        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 block flex items-center gap-1"><Users className="w-3 h-3"/> Students</label>
+        <label htmlFor="student-select" className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1"><Users className="w-3 h-3"/> Students</label>
         <select 
+          id="student-select"
           value={selectedStudent || ''} 
           onChange={(e) => setSelectedStudent(e.target.value)}
-          className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:ring-primary focus:border-primary block p-2 outline-none"
+          className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:ring-2 focus:ring-primary focus:border-primary block p-2 outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           {students.length === 0 && <option value="">No Students</option>}
           {students.map(s => <option key={s} value={s}>{s}</option>)}
@@ -49,8 +50,10 @@ export default function Sidebar() {
           <Link
             key={item.id}
             to={item.id}
+            aria-label={item.label}
+            title={item.label}
             className={clsx(
-              "flex items-center justify-center lg:justify-start gap-3 p-3 rounded-lg transition-all duration-200 group relative",
+              "flex items-center justify-center lg:justify-start gap-3 p-3 rounded-lg transition-all duration-200 group relative focus-visible:ring-2 focus-visible:ring-primary focus:outline-none",
               location.pathname === item.id 
                 ? "bg-primary text-white shadow-md shadow-primary/20" 
                 : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
@@ -81,7 +84,8 @@ export default function Sidebar() {
             localStorage.removeItem('isAuthenticated');
             window.location.href = '/login';
           }}
-          className="w-full mt-2 text-xs text-slate-500 hover:text-rose-500 hidden lg:block"
+          aria-label="Sign Out"
+          className="w-full mt-2 text-xs text-slate-500 hover:text-rose-500 hidden lg:block focus-visible:ring-2 focus-visible:ring-rose-500 focus:outline-none rounded"
         >
           Sign Out
         </button>
