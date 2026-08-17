@@ -1,0 +1,3 @@
+## 2026-08-17 - Hidden Text Creates Unlabelled Links on Mobile
+**Learning:** Using responsive classes like `hidden lg:block` to hide navigation text on small screens creates icon-only links for mobile users. If these links lack `aria-label`s, screen readers on mobile devices will announce them ambiguously (e.g., just "link" or the raw URL path), severely degrading the mobile accessibility experience.
+**Action:** Whenever responsive classes are used to hide text next to an icon within interactive elements (buttons, links), an explicit `aria-label` or `title` containing the full text MUST be applied to the parent element.
