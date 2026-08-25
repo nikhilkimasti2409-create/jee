@@ -138,7 +138,12 @@ export default function Settings() {
             <div className="space-y-3">
               <div 
                 onClick={toggleEmailAlerts}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors"
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleEmailAlerts(); } }}
+                role="switch"
+                aria-checked={emailAlerts}
+                aria-label="Real-time Security Alerts"
+                tabIndex={0}
+                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <div className="flex items-center gap-3">
                   <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", emailAlerts ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")}>
@@ -156,7 +161,12 @@ export default function Settings() {
 
               <div 
                 onClick={toggleDailyReports}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors"
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleDailyReports(); } }}
+                role="switch"
+                aria-checked={dailyReports}
+                aria-label="Daily Summary Reports"
+                tabIndex={0}
+                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <div className="flex items-center gap-3">
                   <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", dailyReports ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")}>
