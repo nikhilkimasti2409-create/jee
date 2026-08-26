@@ -110,7 +110,7 @@ export default function Dashboard() {
         <div className="glass-card p-6 lg:col-span-2 flex flex-col">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-headline font-semibold text-lg text-slate-800">Subject Breakdown</h2>
-            <button className="text-sm font-label text-primary hover:text-indigo-700 transition-colors font-medium">Detailed View</button>
+            <button className="text-sm font-label text-primary hover:text-indigo-700 transition-colors font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 rounded-sm">Detailed View</button>
           </div>
           
           <div className="flex-1 flex flex-col justify-center">
@@ -224,7 +224,12 @@ export default function Dashboard() {
         <div className="glass-card p-6 h-80 flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-headline font-semibold text-lg text-slate-800">Recent Activity</h2>
-            <button className="text-slate-400 hover:text-slate-600"><Activity className="w-4 h-4" /></button>
+            <button
+              aria-label="View recent activity"
+              className="text-slate-400 hover:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 rounded-sm transition-shadow"
+            >
+              <Activity className="w-4 h-4" />
+            </button>
           </div>
           <div className="flex-1 overflow-y-auto space-y-5 pr-2">
             {!status?.screenTime || Object.keys(status.screenTime).length === 0 ? (
