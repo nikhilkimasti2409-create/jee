@@ -1,0 +1,3 @@
+## 2025-02-27 - Semantic Toggle Buttons for Accessibility
+**Learning:** Custom interactive elements like toggles are often implemented with `div`s and an `onClick` handler. However, this breaks keyboard accessibility and screen reader support since `div`s aren't naturally focusable and don't announce their state.
+**Action:** Always replace `div` based toggles with `<button type="button" role="switch" aria-checked={value}>` to provide semantic meaning and native focus support. Add `focus:outline-none focus:ring-2 focus:ring-primary/20` classes to clearly indicate focus when navigating via keyboard.
