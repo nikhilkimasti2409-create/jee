@@ -1,0 +1,3 @@
+## 2024-10-27 - Custom Toggles as Buttons
+**Learning:** Custom interactive toggles (like switches for settings) must be implemented as `<button type="button" role="switch" aria-checked={value}>` instead of standard `<div>` elements with `onClick` handlers. Using standard divs prevents native keyboard focus and disrupts screen reader support.
+**Action:** Always replace `<div>` toggles with semantic `<button>` elements, ensuring they include proper styling for full width, text alignment, and visible focus indicators (`focus-visible:ring-2`, `focus:outline-none`).
