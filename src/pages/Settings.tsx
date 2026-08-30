@@ -106,6 +106,7 @@ export default function Settings() {
                   <input 
                     type="password" 
                     placeholder="Enter 4+ digit PIN" 
+                    aria-label="Dashboard PIN"
                     value={pin}
                     onChange={(e) => setPin(e.target.value)}
                     className="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-label"
@@ -136,9 +137,12 @@ export default function Settings() {
             </h3>
             
             <div className="space-y-3">
-              <div 
+              <button
+                type="button"
+                role="switch"
+                aria-checked={emailAlerts}
                 onClick={toggleEmailAlerts}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors"
+                className="w-full text-left flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
               >
                 <div className="flex items-center gap-3">
                   <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", emailAlerts ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")}>
@@ -152,11 +156,14 @@ export default function Settings() {
                 <div className={clsx("w-10 h-5 rounded-full relative transition-colors", emailAlerts ? "bg-primary" : "bg-slate-300")}>
                   <div className={clsx("w-4 h-4 bg-white rounded-full absolute top-0.5 transition-all shadow-sm", emailAlerts ? "left-5" : "left-1")} />
                 </div>
-              </div>
+              </button>
 
-              <div 
+              <button
+                type="button"
+                role="switch"
+                aria-checked={dailyReports}
                 onClick={toggleDailyReports}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors"
+                className="w-full text-left flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
               >
                 <div className="flex items-center gap-3">
                   <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", dailyReports ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")}>
@@ -170,7 +177,7 @@ export default function Settings() {
                 <div className={clsx("w-10 h-5 rounded-full relative transition-colors", dailyReports ? "bg-primary" : "bg-slate-300")}>
                   <div className={clsx("w-4 h-4 bg-white rounded-full absolute top-0.5 transition-all shadow-sm", dailyReports ? "left-5" : "left-1")} />
                 </div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
