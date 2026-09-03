@@ -27,8 +27,11 @@ export default function Sidebar() {
       </div>
 
       <div className="px-4 mb-6 hidden lg:block">
-        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 block flex items-center gap-1"><Users className="w-3 h-3"/> Students</label>
+        <label htmlFor="student-select" className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1">
+          <Users className="w-3 h-3" aria-hidden="true" /> Students
+        </label>
         <select 
+          id="student-select"
           value={selectedStudent || ''} 
           onChange={(e) => setSelectedStudent(e.target.value)}
           className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:ring-primary focus:border-primary block p-2 outline-none"
@@ -49,6 +52,8 @@ export default function Sidebar() {
           <Link
             key={item.id}
             to={item.id}
+            title={item.label}
+            aria-label={item.label}
             className={clsx(
               "flex items-center justify-center lg:justify-start gap-3 p-3 rounded-lg transition-all duration-200 group relative",
               location.pathname === item.id 
@@ -56,7 +61,7 @@ export default function Sidebar() {
                 : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
             )}
           >
-            <item.icon className="w-5 h-5" />
+            <item.icon className="w-5 h-5" aria-hidden="true" />
             <span className="font-label font-medium hidden lg:block">{item.label}</span>
           </Link>
         ))}
