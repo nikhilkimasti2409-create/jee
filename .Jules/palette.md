@@ -1,0 +1,3 @@
+## 2023-10-27 - Notification Toggles Accessibility Pattern
+**Learning:** Interactive `div` elements used as toggles in this app lack native keyboard support, focus indicators, and screen reader semantic bindings like `role="switch"` and `aria-checked`. Relying solely on `onClick` prevents basic a11y navigation.
+**Action:** Always replace custom interactive `div`s with semantic `<button type="button" role="switch" aria-checked={value}>`. Ensure `w-full text-left` is preserved to reset default button alignment, and implement `focus:outline-none focus-visible:ring-2` to add visible focus rings exclusively for keyboard users.
