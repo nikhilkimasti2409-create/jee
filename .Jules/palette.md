@@ -1,0 +1,3 @@
+## 2026-09-08 - [Settings Toggles Accessibility]
+**Learning:** Custom interactive toggles in React applications often lack proper accessibility traits like ARIA roles (switch/checkbox) and keyboard focus states. In `src/pages/Settings.tsx`, the notification settings toggles were implemented as `<div>` elements with `onClick` handlers, making them inaccessible to keyboard and screen reader users.
+**Action:** Always implement custom interactive toggles using `<button type="button" role="switch" aria-checked={value}>` with `onClick` instead of `<div>` to ensure native keyboard focus and proper screen reader support.
