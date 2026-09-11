@@ -1,0 +1,3 @@
+## 2023-10-27 - Responsive Sidebar Links Accessibility
+**Learning:** When text labels in a responsive layout (like a sidebar) are hidden on smaller screens (e.g., using `hidden lg:block`), the parent interactive element (like a link) requires an `aria-label` and `title` to ensure it remains fully accessible to screen readers and provides a tooltip on hover. Additionally, inner decorative icons should have `aria-hidden="true"` to prevent redundant announcements.
+**Action:** Always add `aria-label` and `title` to interactive elements whose text might be visually hidden in responsive breakpoints, and apply `aria-hidden="true"` to their accompanying decorative icons.
