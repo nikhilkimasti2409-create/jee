@@ -136,12 +136,15 @@ export default function Settings() {
             </h3>
             
             <div className="space-y-3">
-              <div 
+              <button
+                type="button"
+                role="switch"
+                aria-checked={emailAlerts}
                 onClick={toggleEmailAlerts}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors"
+                className="w-full text-left flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               >
                 <div className="flex items-center gap-3">
-                  <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", emailAlerts ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")}>
+                  <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", emailAlerts ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")} aria-hidden="true">
                     {emailAlerts ? <Bell className="w-4 h-4" /> : <BellOff className="w-4 h-4" />}
                   </div>
                   <div>
@@ -149,17 +152,20 @@ export default function Settings() {
                     <p className="text-xs text-slate-500">Get emails immediately when a distraction is blocked.</p>
                   </div>
                 </div>
-                <div className={clsx("w-10 h-5 rounded-full relative transition-colors", emailAlerts ? "bg-primary" : "bg-slate-300")}>
+                <div className={clsx("w-10 h-5 rounded-full relative transition-colors", emailAlerts ? "bg-primary" : "bg-slate-300")} aria-hidden="true">
                   <div className={clsx("w-4 h-4 bg-white rounded-full absolute top-0.5 transition-all shadow-sm", emailAlerts ? "left-5" : "left-1")} />
                 </div>
-              </div>
+              </button>
 
-              <div 
+              <button
+                type="button"
+                role="switch"
+                aria-checked={dailyReports}
                 onClick={toggleDailyReports}
-                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors"
+                className="w-full text-left flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               >
                 <div className="flex items-center gap-3">
-                  <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", dailyReports ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")}>
+                  <div className={clsx("w-8 h-8 rounded-full flex items-center justify-center", dailyReports ? "bg-sky-100 text-sky-500" : "bg-slate-100 text-slate-400")} aria-hidden="true">
                     {dailyReports ? <Mail className="w-4 h-4" /> : <BellOff className="w-4 h-4" />}
                   </div>
                   <div>
@@ -167,10 +173,10 @@ export default function Settings() {
                     <p className="text-xs text-slate-500">Receive a daily breakdown of study analytics at 9 PM.</p>
                   </div>
                 </div>
-                <div className={clsx("w-10 h-5 rounded-full relative transition-colors", dailyReports ? "bg-primary" : "bg-slate-300")}>
+                <div className={clsx("w-10 h-5 rounded-full relative transition-colors", dailyReports ? "bg-primary" : "bg-slate-300")} aria-hidden="true">
                   <div className={clsx("w-4 h-4 bg-white rounded-full absolute top-0.5 transition-all shadow-sm", dailyReports ? "left-5" : "left-1")} />
                 </div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
