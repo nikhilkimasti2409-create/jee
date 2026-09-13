@@ -1,0 +1,3 @@
+## 2025-02-18 - Tailwind `hidden` and Accessibility
+**Learning:** Tailwind's `hidden` utility applies `display: none`, which hides elements from screen readers. When hiding text labels in responsive layouts (e.g., `hidden lg:block`), the parent interactive element (like a `<Link>`) must have an `aria-label` or `title`, and inner decorative icons must have `aria-hidden="true"`.
+**Action:** Always verify if responsive utilities (`hidden`) are used inside interactive elements. If they are, manually enforce accessible names and titles on the parent to prevent screen readers from announcing an "empty" element on smaller viewports.
