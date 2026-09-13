@@ -49,6 +49,8 @@ export default function Sidebar() {
           <Link
             key={item.id}
             to={item.id}
+            aria-label={item.label}
+            title={item.label}
             className={clsx(
               "flex items-center justify-center lg:justify-start gap-3 p-3 rounded-lg transition-all duration-200 group relative",
               location.pathname === item.id 
@@ -56,7 +58,7 @@ export default function Sidebar() {
                 : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
             )}
           >
-            <item.icon className="w-5 h-5" />
+            <item.icon className="w-5 h-5" aria-hidden="true" />
             <span className="font-label font-medium hidden lg:block">{item.label}</span>
           </Link>
         ))}
